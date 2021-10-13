@@ -1,0 +1,362 @@
+/* 제목 색갈 안변하게   */
+a:not(.home .btn) {
+	color: gray;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+a:hover:not(.home) {
+	color: DimGray;
+	font-size: 1.2em;
+}
+
+a:active:not(.home) {
+	color: SeaGreen;
+}
+
+/* 제목 색갈 안변하게   */
+.home {
+	color: black;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+.product_main {
+	align-content: center;
+}
+
+/* 상품 리스트 나열 CSS */
+.product_list {
+	display: inline-flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.product_item {
+	display: block;
+	margin: 20px;
+}
+
+.product_info {
+	text-align: center;
+}
+
+/* 필터 바 css 구현 부 */
+/* home페이지 css 구현 부  */
+/* 서비스 바 (고객센터 매장위치)*/
+.servicebar {
+	width: 100%;
+	height: 30px;
+	background-color: #e5e5e5;
+	display: flex;
+	align-items: center;
+}
+
+.servicebar_left_item {
+	display: flex;
+	margin-right: auto;
+}
+
+.service_item {
+	margin-right: 20px;
+	font-size: 0.8125rem;
+}
+
+/*헤더 (타이틀로고 로그인 ) */
+.header {
+	display: flex;
+	width: 100%;
+	height: 5rem;
+	justify-content: space-between;
+	margin-top: 30px;
+	align-items: center;
+	padding: 0 1.78125rem;
+	box-sizing: border-box;
+	background-color: #fff;
+}
+
+/*헤더 (왼쪽 공간) */
+.header_left_item {
+	margin-top: 30px;
+	display: flex;
+	margin-right: auto;
+}
+
+/*헤더 (검색 박스) */
+.search_box {
+	height: 2rem;
+	border: .0625rem solid #757575;
+	border-radius: 2rem;
+	box-sizing: border-box;
+	z-index: 1;
+	position: relative;
+	font-size: .9375rem;
+	background-color: #fff;
+	color: #000;
+}
+
+/*헤더 (검색버튼 css) */
+.button_left:hover {
+	border-radius: 4rem;
+	border-right: solid #FFE4C4;
+	border-bottom: solid #FFE4C4;
+}
+
+.button_left:active {
+	border-radius: 3rem;
+	border-left: solid gray;
+	border-top: solid gray;
+	border-right: none;
+	border-bottom: none;
+}
+
+/*헤더 (검색버튼) */
+.search_button {
+	margin-left: 5px;
+      height: 30px;
+      padding-left: 23px;
+      border: none;
+      background-position: center;
+      background-image: url("../img/searchbutton.png");
+}
+
+/*헤더 (가운데공간분할 _로고) */
+.header_logo {
+	margin-right: 20px;
+	align-items: center;
+	font-size: 60px;
+	font-weight: bold;
+	font-family: 'Edwardian Script ITC', Arial, sans-serif;
+}
+
+/*헤더 (오른쪽공간분할 로그인 마이페이지 위시리스트 ) */
+.header_right_item {
+	display: flex;
+	margin-left: auto;
+	margin-top: 50px;
+}
+
+.header_item {
+	margin-right: 10px;
+	font-size: 10px;
+	align-items: center;
+}
+
+/*nav 메뉴바 (cloth,perfume, Best, new item, sale) */
+.nav {
+	height: 50px;
+	border-bottom: 1px solid #E6E6FA;
+	display: flex;
+	align-items: center;
+}
+
+.nav_center_item {
+	display: flex;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.nav_item:hover .dropdown-menu {
+	display: block;
+	margin-top: 0;
+}
+
+.nav_item a {
+	font-family: 'Goudy Old Style', Arial, sans-serif;
+	text-decoration: none;
+	position: relative;
+	padding: 12px 50px;
+}
+
+.nav_item a::after {
+	content: "";
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 0;
+	height: 2px;
+	background: #f1c40f;
+	transition: all .5s ease-out;
+}
+
+.nav_item a:hover::after {
+	width: 100%
+}
+
+/*케러벨 사이즈 */
+.carousel {
+	width: 640px;
+	height: 960px;
+	align-items: center;
+	text-align: center;
+	margin: auto;
+}
+
+.carousel_full {
+	align-items: center;
+	text-align: center;
+	margin: auto;
+}
+
+.carousel-inner {
+	align-items: center;
+	text-align: center;
+}
+
+/*컨텐츠 공간분할 */
+.content2 {
+	margin-top: 50px;
+	border-top: 1px solid #f5cffc;
+	border-top: 1px solid #f5cffc;
+}
+
+/*이미지1 공간분할  */
+.img_box1 {
+	display: block;
+	margin: auto;
+	width: 1238.4px;
+	height: 520px;
+	text-align: center;
+	align-items: center;
+}
+
+/*이미지 부제목  */
+.img_content_subtitle {
+	font-size: 18px;
+	font-family: 'Goudy Old Style', Arial, sans-serif;
+	color: #757575;
+	align-items: center;
+}
+
+/*이미지 제목  */
+.img_content_title {
+	font-size: 25px;
+	color: black;
+	align-items: center;
+	text-align: center;
+}
+.img_shopping{
+	align-items: center;
+	text-align: center;
+}
+
+.shopping_button {
+      border: 1px solid #A9A9A9;
+      border-radius: 30px;
+      padding-left: 60px;
+      padding-right: 60px;
+      background-color: black;
+      font-size: 20px;
+      color: white;
+    }
+
+/*제품 간단리스트 공간 분할   */
+.product {
+	display: block;
+	margin-top: 30px;
+	border-top: 1px solid #E6E6FA;
+	padding-bottom: 30px;
+}
+
+/* 제목 공간 분할  */
+.product_titlebar {
+	display: flex;
+}
+
+/* 제목 css  */
+.product_title {
+	font-size: 20px;
+	font-family: 'Goudy Old Style', Arial, sans-serif;
+}
+
+/* 더보기 css  */
+.product_title_item {
+	margin-left: auto;
+	font-size: 15px
+}
+/* 제품 사진 사이즈 */
+ .product_img { 
+	width: 100%;
+	height: 400px;
+}
+
+
+/* 제품 이름 공간 분할 */
+.product_name {
+	margin-top: 30px;
+	font-size: 20px;
+	font-weight: bold;
+	font-family: '맑은 고딕', Arial, sans-serif;
+}
+
+/* 제품 가격 공간 분할 */
+.product_price {
+	font-family: inherit;
+	font-size: 16px;
+}
+
+/* 제품 리뷰 공간 분할 */
+.product_review {
+	padding-top: 23px;
+	padding-bottom: 15px;
+	font-family: inherit;
+	font-size: 12px;
+	color: #A9A9A9;
+}
+
+/* 온라인 부띠크 서비스 아이콘 css*/
+/* 온라인 부띠크 공간*/
+.adventage {
+	display: flex;
+	margin-top: 50px;
+	text-align: center;
+}
+
+/* 온라인 부띠크 컨텐트 공간 분할*/
+.adventage_content {
+	display: block;
+	margin: auto;
+}
+
+/* 온라인 부띠크 제목*/
+.adventage_title {
+	margin-top: 30px;
+	font-size: 32px;
+	text-align: center;
+	background-color: black;
+	color: white;
+}
+
+/* 온라인 부띠크 리스트 항목*/
+.adventage_list {
+	display: flex;
+	background-color: black;
+}
+
+/* 온라인 부띠크 리스트 요소*/
+.adventage_item {
+	display: block;
+	background-color: black;
+	font-size: 15px;
+	margin-left: 50px;
+	margin-right: 50px;
+	margin-top: 50px;
+	margin-bottom: 50px;
+	color: white;
+}
+
+/* a태그들*/
+.footer_box {
+	background-color: #f1f1f1;
+}
+
+.footer_content {
+	text-align: center;
+}
+
+/* 사업정보 */
+.foter_info {
+	text-align: center;
+	color: #9e9e9e;
+}

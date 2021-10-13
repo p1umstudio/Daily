@@ -1,0 +1,153 @@
+a:not(.home) {
+	color: gray;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+a:hover:not(.home) {
+	color: DimGray;
+	font-size: 1.2em;
+}
+
+a:active:not(.home) {
+	color: SeaGreen;
+}
+/* 제목 색갈 안변하게   */
+.home {
+	color: black;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+/*   header  */
+.Servicecenter_header {
+	text-align: center;
+	font-size: 27px;
+	font-weight: 600;
+	color: #000;
+	padding: 50px 0 80px;
+}
+
+/*   nav  */
+.qna_nav {
+	display: flex;
+	height: 50px;
+	min-width: 800px;
+	align-items: center;
+	color: black;
+}
+
+.qna_nav_center {
+	display: flex;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.qna_nav_item {
+	margin: 20px;
+}
+
+/*   infomation  */
+.info {
+	display: flex;
+	margin-top: 40px;
+	margin-left: 10%;
+	margin-right: 10%;
+	margin-bottom: 50px;
+	min-width: 800px;
+}
+
+.info_left {
+	display: flex;
+	box-sizing: border-box;
+	width: 100%;
+}
+
+.info_left_img {
+	margin-right: 40px;
+	margin-left: 20%;
+}
+
+.info_left_warap {
+	display: block;
+}
+
+.info_word_a {
+	margin-bottom: 10px;
+}
+
+.info_word_b {
+	font-size: 28px;
+	font-weight: bold;
+	color: #000;
+}
+
+.info_word_c {
+	margin-top: 10px;
+}
+
+.info_right {
+	display: flex;
+	box-sizing: border-box;
+	width: 100%;
+}
+
+.info_right_img {
+	margin-right: 40px;
+	margin-left: 20%;
+}
+
+.info_right_warap {
+	display: block;
+}
+
+.info_word_d {
+	font-size: 20px;
+	font-weight: bold;
+	color: #000;
+}
+
+/*   list  */
+
+table{
+	width: 100%;
+	height: 40px;
+	border-collapse: collapse;
+	background-color: ffebb5;
+	border-radius: 16px;
+	box-shadow: inset 0 0 8px #deb13a;
+}
+
+th:nth-child(3) {
+	width: 800px;
+}
+
+tr:hover{
+	background-color: #E6E6FA;
+	border-radius: 16px;
+}
+
+th, td {
+	 border-bottom: 1px solid #444444;
+    border-left: 1px solid #444444;
+    padding: 10px;
+}
+ th:first-child, td:first-child {
+    border-left: none;
+  }
+
+td {
+	text-align: center;
+	align-items: center;
+}
+
+textarea{
+	width: 600px;
+	height: 300px;
+}
+
+list_item{
+	display:flex;
+	margin-left: 50px;
+	
+}

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="daily.mapper.CartMapper">
+ 
+ <!-- ~~~ -기본 CRUD SQL문 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+ <insert id="addCart">
+ 	insert into cart(cartnum,id,productnum,quantity) 
+ 		   values (LAST_INSERT_ID(),#{id},#{productnum},#{quantity}) 
+ </insert>
+ 
+ <select id="cartList" resultType="vo.CartVO">
+ 	select
+ 	cartnum,p.image,c.id,c.productnum,pname,quantity,price2,(price2*quantity) money 
+ 	from cart c, member m, product p
+ 	where m.id = c.id AND c.productnum = p.productnum AND c.id = #{id}
+ </select>
+ 	
+ <select id="sumMoney" resultType="int">
+ 	select
+ 	IFNULL(sum(price2*quantity),0) money
+ 	from cart c , product p
+ 	where c.productnum = p.productnum AND c.id = #{id}
+ </select>	
+ <delete id="deleteCart">
+ 	delete from cart where cartnum = #{cartnum}
+ </delete>
+ 
+  <delete id="deleteAll">
+ 	delete from cart c where c.id = #{id}
+ </delete>
+ 
+ <update id="updateCart">
+ 	update cart set quantity = #{quantity}  where cartnum = #{cartnum}
+ </update>
+ 
+ 
+</mapper>

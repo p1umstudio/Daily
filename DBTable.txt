@@ -1,0 +1,291 @@
+ 
+
+새로운 db 생성 daily
+===========================================================
+drop database daily;
+create database daily ;
+use daily;
+============================================================
+
+create table member (
+	id varchar(100)  PRIMARY KEY,
+	pw varchar(100) not null,
+	name varchar(30) not null,
+	address varchar(100) not null,
+	phone varchar(20) not null UNIQUE,
+	birth date not null, 
+	state char(1) default 'T',
+	date DATETIME DEFAULT NOW(),
+	lv int DEFAULT 1 not null, 
+	money int DEFAULT 0,
+	point int DEFAULT 0
+);
+
+
+
+
+
+create table product (
+	productnum int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	pname varchar(50) not null UNIQUE,
+	content varchar(1000),
+	date DATETIME DEFAULT NOW(),
+	image varchar(100),
+	state char(1) default 'T',
+	price1 int not null,
+	price2 int,
+	price3 int,
+	quantity1 int,
+	quantity2 int,
+	kind char,
+	count int,
+	score int
+);
+
+
+
+
+
+create table WishList(
+	wlnum int NOT NULL AUTO_INCREMENT primary key,
+	id varchar(100) not null,
+	productnum int not null,
+	 CONSTRAINT FK_wish_id FOREIGN KEY (id) REFERENCES member(id),
+	 CONSTRAINT FK_wish_productnum FOREIGN KEY (productnum) REFERENCES product(productnum),
+	date DATETIME DEFAULT NOW()	
+);
+
+
+alter table wishlist drop quantity;
+	
+create table cart(
+	cartnum int NOT NULL AUTO_INCREMENT primary key,
+	id varchar(100) not null,
+	productnum int not null,
+	 CONSTRAINT FK_cart_id FOREIGN KEY (id) REFERENCES member(id),
+	 CONSTRAINT FK_cart_productnum FOREIGN KEY (productnum) REFERENCES product(productnum),
+	quantity int default 1,
+	date DATETIME DEFAULT NOW()	
+);
+
+
+
+create table orders(
+	ordersnum int NOT NULL AUTO_INCREMENT primary key,
+	id varchar(100) not null,
+	productnum int not null,
+	quantity int not null,
+	CONSTRAINT FK_order_id FOREIGN KEY (id) REFERENCES member(id),
+	CONSTRAINT FK_order_productnum FOREIGN KEY (productnum) REFERENCES product(productnum)
+);
+
+
+
+
+
+
+create table review(
+	reviewnum int NOT NULL AUTO_INCREMENT primary key,
+	productnum int not null,
+	id varchar(100) not null,
+	CONSTRAINT FK_review_id FOREIGN KEY (id) REFERENCES member(id),
+	 CONSTRAINT FK_review_productnum FOREIGN KEY (productnum) REFERENCES product(productnum),
+	content varchar(1000),
+	date DATETIME DEFAULT NOW(),
+	state char(1) default 'T',
+	image varchar(100),
+	score int check( 0<score<6) default 5 
+);
+
+
+
+
+
+create table product_qna(
+	prodqnanum int NOT NULL AUTO_INCREMENT primary key,
+	pname varchar(50) not null UNIQUE,
+	CONSTRAINT FK_prodqna_name FOREIGN KEY (name) REFERENCES product(name),
+	id varchar(100) not null,
+	CONSTRAINT FK_prodqna_id FOREIGN KEY (id) REFERENCES member(id),	
+	title varchar(200),
+	content varchar(1000),
+	root int,
+	step int,
+	date DATETIME DEFAULT NOW(),
+	state char(1),
+	secret char(1)
+);
+
+
+
+
+
+
+
+create table qna(
+	qnanum int not null auto_increment primary key,
+	id varchar(10),
+	CONSTRAINT FK_pna_id FOREIGN KEY (id) REFERENCES member(id),	
+	title varchar(200),
+	content varchar(1000),
+	root int,
+	step int,
+	date DATETIME DEFAULT NOW(),
+	state char(1) default 'T',
+	secret int default 1
+);
+
+
+
+
+
+create table faq(
+	faqnum int not null auto_increment primary key,
+	id varchar(10),
+	CONSTRAINT FK_faq_id FOREIGN KEY (id) REFERENCES member(id),	
+	title varchar(200),
+	content varchar(1000),
+	date DATETIME DEFAULT NOW()
+	);
+
+
+create table ntc(
+	ntcnum int not null auto_increment primary key,
+	id varchar(10),
+	CONSTRAINT FK_ntc_id FOREIGN KEY (id) REFERENCES member(id),	
+	title varchar(800),
+	content varchar(1000),
+	date DATETIME DEFAULT NOW()
+);
+
+
+
+
+
+
+
+
+
+============================================================
+member(회원) 데이터 넣어주기 
+=====================================
+
+insert into member (id,pw,name,address,phone,birth,state,money,point) 
+values('aaa11','12345!','홍길동','성남시분당구미금역','010-1234-5678','2020-09-04','T',0,0); 
+
+insert into member (id,pw,name,address,phone,birth,state,money,point) 
+values('aaa22','12345!','피카츄','성남시분당구야탑역','010-2312-5093','2020-09-04','T',0,0); 
+
+insert into member (id,pw,name,address,phone,birth,state,money,point) 
+values('aaa33','12345!','웅이','성남시분당구정자역','010-4532-7785','2020-09-04','T',0,0); 
+
+insert into member (id,pw,name,address,phone,birth,state,money,point) 
+values('aaa44','12345!','지우','성남시분당구오리역','010-3265-9734','2020-09-04','T',0,0); 
+
+insert into member (id,pw,name,address,phone,birth,state,lv,money,point) 
+values('admin','12345!','관리자','성남시분당구미금역','010-1234-5328','2020-09-04','T',5,0,0); 
+
+
+======================================================================
+product(상품) 데이터 넣어주기
+
+Insert into product (productnum,pname,content,date,state,price1,price2,price3,quantity1,quantity2,kind,score)
+Values(1,'티셔츠','목늘어남이 적은 기본 무지 티셔츠',now(),'T',3000,6000,(price2-price1),30,20,'1',
+5);
+
+Insert into product 
+(pname,content,date,state,price1,price2,price3,quantity1,quantity2,kind,score)
+Values('긴팔티셔츠','롱 슬리브 티셔츠',now(),'T',9000,15000,(price2-price1),30,20,'1',
+4);
+
+Insert into product 
+(pname,content,date,state,price1,price2,price3,quantity1,quantity2,kind,score)
+Values('롱더블코트','기장감이 길고 오버핏의 코트','2021-09-04','T',22000,128000,(price2-price1),10,5,'3',
+5);
+
+Insert into product 
+(pname,content,date,state,price1,price2,price3,quantity1,quantity2,kind,score)
+Values('구찌백팩','하이브랜드 구찌에서 제작한 백백','2021-09-04','T',225000,998000,(price2-price1),20,18,'4',
+4);
+
+Insert into product 
+(pname,content,date,state,price1,price2,price3,quantity1,quantity2,kind,score)
+Values('구찌백팩','하이브랜드 구찌에서 제작한 백백','2021-09-04','T',225000,998000,(price2-price1),20,18,'4',
+4);
+Insert into product 
+(pname,content,date,state,price1,price2,price3,quantity1,quantity2,kind,score)
+Values('구찌백팩','하이브랜드 구찌에서 제작한 백백','2021-09-04','T',225000,998000,(price2-price1),20,18,'4',
+4);
+Insert into product 
+(pname,content,date,state,price1,price2,price3,quantity1,quantity2,kind,score)
+Values('구찌백팩','하이브랜드 구찌에서 제작한 백백','2021-09-04','T',225000,998000,(price2-price1),20,18,'4',
+4);
+
+=======================================================================
+qna(질문) 데이터 넣어주기 
+
+insert into qna 
+(id,title,content,root,step,secret)
+values("aaa11","상품 질문입니다."," 오.. 상품이 심상치 않은데? 반품 해주세요",1,0,1);
+
+insert into qna 
+(id,title,content,root,step,secret)
+values("aaa11","상품 질문입니다."," 오.. 상품이 심상치 않은데? 반품 해주세요",2,0,1);
+
+insert into qna 
+(id,title,content,root,step,secret)
+values("aaa22","질문입니다..."," 오.. 상품이 심상치 않은데? ",3,0,1);
+
+insert into qna 
+(id,title,content,root,step,secret)
+values("aaa33","질문입니다...","  심상치 않은데? 반품 해주세요",4,0,1);
+
+insert into qna 
+(id,title,content,root,step,secret)
+values("aaa22","질문입니다..."," 제발돼라",5,0,2);
+
+insert into qna 
+(id,title,content,root,step,secret)
+values("aaa22","질문입니다...","  제발돼라",6,0,2);
+
+
+
+=======================================================================
+
+ntc 공지사항 데이터 
+
+insert into ntc (id,title,content) values('admin','향수 신상품이 등록되었습니다','1.daily 수제향수 2.xx향수 3.yy향수');
+
+insert into ntc (id,title,content) values('admin','sale 품목이 등록되었습니다','가을맞이 상품 할인 최대 20% 적용 품목 ..~');
+
+insert into ntc (id,title,content) values('admin','이번 한달간 적립금 이벤트','적립금은 충전시 8%증가합니다 ');
+
+
+
+
+=======================================================================
+wish list 위시리스트/찜목록
+
+insert into wishlist(id, productnum, quantity) values('test','2','1');
+
+=======================================================================
+faq 자주묻는 질문 데이터 
+
+insert into faq (id,title,content) values('admin','배송은 언제되는 것인가여?','주문직후 바로 배송 처리합니다.');
+
+insert into faq (id,title,content) values('admin','반품에 대한 문제','고객센터 전화번호로 문의주시면 빠르게 해결할수이있습니다');
+
+insert into faq (id,title,content) values('admin','적립금/쿠폰/회원관련','적립금은 충전 즉시 적립됩니다.');
+
+=======================================================================
+Cart 샘플 데이터  << 작동안되요 ㅠㅠ(ss)
+insert into cart(cartnum,id,productnum,quantity) values (2,'aaa22',1,2);
+
+Join 구문
+select m.name,p.name, quantity,price2*quantity money from member m, product p ,cart c where m.id=c.id and p.productnum = c.productnum;
+
+===========================================================================
+
+insert into product_qna
+(name,id,title,content,root,step,state,secret)
+values("긴팔티셔츠","aaa11","상품 질문입니다."," 오.. 상품이 심상치 않은데? 반품 해주세요",1,0,'T',1);

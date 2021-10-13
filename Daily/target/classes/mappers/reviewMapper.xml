@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="daily.mapper.ReviewMapper">
+
+	<update id="stepUpdate">
+		update review set step=step+1 where root=#{root} and step>=#{step}
+	</update>
+	 
+	<insert id="replyInsert">
+		<selectKey keyProperty="qnanum" resultType="int" order="BEFORE">
+			select ifnull(max(qnanum),0)+1 from review
+		</selectKey>
+		insert into review
+		(id,content,root,step,)
+		values(#{id},#{content},#{root},#{step})
+	</insert>
+	
+
+	<!-- 기본 CRUD + countUp 추가 -->
+	<select id="selectList" resultType="vo.ProductVO">
+		select * from review where name =#{name} and state = 'T' order by root desc, step asc;
+	</select>
+
+	<select id="myreview" resultType="vo.ReviewVO">
+		select review.reviewnum, product.pname, review.id, review.date, review.content  from review, product where id=#{id} and product.productnum = review.productnum
+		
+	</select>
+	<select id="selectOne" resultType="vo.ProductVO">
+		select * from review where reviewnum = #{reviewnum}
+	</select>
+
+	<insert id="insert">
+		<selectKey keyProperty="reviewnum" resultType="int"
+			order="BEFORE">
+			select IFNULL(max(reviewnum),0)+1 from review
+		</selectKey>
+		insert into review (name,id,content,image,root,step,score)
+					values (#{name},#{id},#{content},#{image},#{reviewnum},#{step},#{score})
+	</insert>
+
+	<update id="update">
+		update review set content = #{content},state = #{state}, image = #{image}, 
+		score = #{score}
+		where reviewnum = #{reviewnum}
+	</update>
+	
+	<delete id="delete">
+		delete from review where reviewnum = #{reviewnum}
+	</delete>
+
+</mapper>

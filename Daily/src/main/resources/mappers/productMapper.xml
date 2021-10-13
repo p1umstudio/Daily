@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="daily.mapper.ProductMapper">
+
+	<sql id="costsearch">
+		<if test="costsearch != null">
+			<if test="costsearch=='c1'.toString()">
+				and price2 between 10000 and 30000
+			</if>
+			<if test="costsearch=='c2'.toString()">
+				and price2 between 30001 and 40000
+			</if>
+			<if test="costsearch=='c3'.toString()">
+				and price2 between 40001 and 50000
+			</if>
+			<if test="costsearch=='c4'.toString()">
+				<![CDATA[ and price2 > 50001   ]]>
+			</if>
+			<if test="costsearch=='n'.toString()">
+				
+			</if>
+		</if>
+	</sql>
+	<sql id="kindsearch">
+		<if test="kindsearch != null">
+			<if test="kindsearch=='k1'.toString()">
+				and kind=1
+			</if>
+			<if test="kindsearch=='k2'.toString()">
+				and kind=2
+			</if>
+			<if test="kindsearch=='k3'.toString()">
+				and kind=3
+			</if>
+			<if test="kindsearch=='k4'.toString()">
+				and kind=4
+			</if>
+			<!-- 향수 -->
+			<if test="kindsearch=='k5'.toString()">
+				and kind=5
+			</if>
+			<if test="kindsearch=='n'.toString()">
+				
+			</if>
+		</if>
+	</sql>
+	<sql id="scoresearch">
+		<if test="scoresearch != null">
+			<if test="scoresearch=='s1'.toString()">
+				and score=1
+			</if>
+			<if test="scoresearch=='s2'.toString()">
+				and score=2
+			</if>
+			<if test="scoresearch=='s3'.toString()">
+				and score=3
+			</if>
+			<if test="scoresearch=='s4'.toString()">
+				and score=4
+			</if>
+			<if test="scoresearch=='s5'.toString()">
+				and score=5
+			</if>
+			<if test="scoresearch=='n'.toString()">
+				
+			</if>
+		</if>
+	</sql>
+	<sql id="keyword">
+		<if test="keyword != null">
+			and pname Like concat('%',#{keyword},'%')
+		</if>
+		
+	</sql>
+
+	<!-- <sql id="limit">
+		<choose>
+			<when test=" ( #{sno}-1 + #{rowPerPage}) == #{rowPerPage}">
+				LIMIT #{rowPerPage} OFFSET 0
+			</when>
+			<otherwise>
+				LIMIT #{rowPerPage} OFFSET #{sno}-1+#{rowPerPage} 
+			</otherwise>
+		</choose>
+	</sql>
+	 -->
+	
+	
+
+	<select id="searchRowsCount" resultType="int">
+	<![CDATA[
+		select count(*) from product where productnum > 0 ]]> 
+		<include refid="costsearch"></include>
+		<include refid="kindsearch"></include>
+		<include refid="scoresearch"></include>
+
+		<include refid="keyword"></include>
+	</select>
+
+	<!-- 입력 통합검색 -->
+	<select id="keywordsearchList" resultType="vo.ProductVO">
+	<![CDATA[select * from product where productnum > 0 ]]> 
+		<include refid="costsearch"></include>
+		<include refid="kindsearch"></include>
+		<include refid="scoresearch"></include>
+		<include refid="keyword"></include>
+		order by  productnum desc
+	</select>
+	<!-- select * from product where productnum > 0  and price2 between 10000 and 30000 and pname Like "%티셔%" -->
+
+	<!-- 옵션 조합검색 -->
+	<select id="optionsearchList" resultType="vo.ProductVO">
+	<![CDATA[
+		select * from product 
+		where productnum > 0 ]]>
+		<include refid="costsearch"></include>
+		<include refid="kindsearch"></include>
+		<include refid="scoresearch"></include>
+		<!-- 조건문의 id : search -->
+		order by  productnum desc
+		LIMIT #{rowPerPage} OFFSET #{offset_sno}
+	</select>
+
+	<select id="totalRowCount" resultType="int">
+		select count(*) from product
+	</select>
+
+	<!-- 기본 CRUD + countUp 추가 -->
+	<select id="selectList" resultType="vo.ProductVO">
+		select
+		productnum,pname,content,date,image,
+		state,price1,price2,price3,quantity1,quantity2,kind,count,score from
+		product order by productnum desc
+	</select>
+
+	<select id="selectOne" resultType="vo.ProductVO">
+		select
+		productnum,pname,content,date,image,
+		state,price2,kind,count,score from
+		product where productnum = #{productnum}
+	</select>
+
+	<insert id="insert">
+		<selectKey keyProperty="productnum" resultType="int"
+			order="BEFORE">
+			select IFNULL(max(productnum),0)+1 from product
+		</selectKey>
+		insert into product (pname,content,date,image,
+		state,price1,price2,price3,quantity1,quantity2,kind,count,score)
+		values
+		(#{pname},#{content},now(),#{image},#{state},#{price1},#{price2},
+		#{price3},#{quantity1},#{quantity2},#{kind},0,0)
+	</insert>
+
+	<update id="update">
+		update product set pname = #{pname}, content = #{content},
+		image = #{image}, price2 = #{price2}, state = #{state}, 
+		kind = #{kind}
+		where productnum = #{productnum}
+	</update>
+
+	<update id="countUp">
+		update product set count=IFNULL(count, 0)+1 where productnum=#{productnum}
+	</update>
+
+	<delete id="delete">
+		delete from product where productnum = #{productnum}
+	</delete>
+
+</mapper>

@@ -1,0 +1,18 @@
+
+.regist_table{
+			width: 500px;
+			margin-left: auto;
+			margin-right:auto;
+			text-align: left;
+			align-content: center;
+			}
+			
+table {
+    width: 100%;
+    border-top: 1px solid #444444;
+    border-collapse: collapse;
+  }
+th, td {
+    border-bottom: 1px solid #444444;
+    padding: 10px;
+  }

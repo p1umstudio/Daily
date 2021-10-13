@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="daily.mapper.QnaMapper">
+
+
+
+
+	<update id="stepUpdate">
+		update qna set step=step+1 where root=#{root} and step>=#{step}
+	</update>
+	 
+	<insert id="replyInsert">
+		<selectKey keyProperty="qnanum" resultType="int" order="BEFORE">
+			select ifnull(max(qnanum),0)+1 from qna
+		</selectKey>
+		insert into qna
+		(id,title,content,root,step,secret)
+		values(#{id},#{title},#{content},#{root},#{step},#{secret})
+	</insert>
+
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -기본 CRUD SQL문 -->
+
+	<!-- qnalist 검색 상태'T'-->
+	<select id="selectList" resultType="vo.QnaVO">
+		select * from qna where state = 'T' order by root desc, step asc;
+	</select>
+
+	<!-- Qna 상세정보보기 -->
+	<select id="selectOne" resultType="vo.QnaVO">
+		select * from qna where qnanum = #{qnanum}
+	</select>
+
+	<insert id="insert">
+	<selectKey keyProperty="qnanum" resultType="int" order="BEFORE">
+		select ifnull(max(qnanum),0)+1 from qna 
+	</selectKey> 
+		insert into qna
+		(id,title,content,root,step,secret)
+		values(#{id},#{title},#{content},#{qnanum},0,#{secret})
+	</insert>
+ 	<!-- 
+ 	 select step from qna where qnanum = max(qnanum)
+ 	 
+ 	 
+ 	 -->
+	<!-- 사용자가 쓴글 변경 -->
+	<update id="update">
+		update qna set title=#{title}, content=#{content}, secret=#{secret} where qnanum=#{qnanum}
+	</update>
+	
+	<!-- 관리자가 쓴글, 상태 변경 -->
+	<update id="adminupdate">
+	
+		update qna set title=#{title},
+		content=#{content},
+		state=#{state},
+		secret=#{secret} where qnanum=#{qnanum}
+	</update>
+	
+	<delete id="delete">
+		delete from qna where qnanum=#{qnanum}
+	</delete>
+
+</mapper>  

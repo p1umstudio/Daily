@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="daily.mapper.wishListMapper">
+
+	<insert id="addCart">
+ 		insert into wishlist(id, productnum)
+     	values (#{id}, #{productnum})
+</insert>
+
+	<select id="wishList" resultType="vo.WishListVO">
+		select wishlist.wlnum, wishlist.id, product.pname as pname, product.image
+		from wishlist, product 
+		where wishlist.id=#{id} and product.productnum = wishlist.productnum
+		order by wishlist.wlnum desc
+	</select>
+
+	<delete id="deleteOne">
+		delete from wishlist where id=#{id} and wlnum = #{wlnum}
+	</delete>
+</mapper>  

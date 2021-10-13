@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="daily.mapper.NtcMapper">
+
+
+	<select id="NselectList" resultType="vo.NtcVO">
+		select * from ntc order by ntcnum desc
+	</select>
+
+	<!--상세정보보기 -->
+	<select id="NselectOne" resultType="vo.NtcVO">
+		select * from ntc where ntcnum = #{ntcnum}
+	</select>
+
+	<insert id="Ninsert">
+		insert into ntc(id,title,content) values(#{id},#{title},#{content})
+	</insert>
+
+	<update id="Nupdate">
+		update ntc set title=#{title},content=#{content} where ntcnum=#{ntcnum}
+	</update>
+
+	<delete id="Ndelete">
+		delete from ntc where ntcnum=#{ntcnum}
+	</delete>
+</mapper>  
