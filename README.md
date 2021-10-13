@@ -5,6 +5,7 @@ Web ShoppingMall
 ```
  * 본 저장소는 웹쇼핑몰프로젝트입니다.
  * 상품 정보를 얻고, 구매를 할 목적으로 만들었습니다.
+ * 본 저장소는 팀프로젝트 (https://github.com/D-aily/ProjectDaily)의 개인 저장소입니다
 ```
 # 주요기능
 ```
